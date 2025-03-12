@@ -6,6 +6,7 @@ vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& prev
 {
     int n = G.numVertices;
     vector<int> distances(n, INF);
+    distances[source] = 0;
     previous.assign(n, -1);
     vector<bool> visited(n, false);
 
@@ -14,7 +15,8 @@ vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& prev
     
     while (!pq.empty())
     {
-        int u = pq.top().first;
+        int u = pq.top().second;
+        pq.pop();
         if (visited[u])
             continue;
         visited[u] = true;
@@ -22,7 +24,7 @@ vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& prev
         {
             int v = edge.dst;
             int weight = edge.weight;
-            if (!visited[v] && distances[u] + weight < distances[v])
+            if (distances[u] != INF &&!visited[v] && distances[u] + weight < distances[v])
             {
                 distances[v] = distances[u] + weight;
                 previous[v] = u;
@@ -61,8 +63,8 @@ void print_path(const vector<int>& v, int total)
         cout << v[i];
         if (i < v.size() - 1)
             cout << " -> ";
-        cout << endl;
     }
+    cout << endl;
 
     cout << "total distance: " << total << endl;
 }
