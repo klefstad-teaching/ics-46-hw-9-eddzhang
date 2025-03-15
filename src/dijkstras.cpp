@@ -52,12 +52,6 @@ vector<int> extract_shortest_path(const vector<int>& distances, const vector<int
 
 void print_path(const vector<int>& v, int total)
 {
-    if (v.empty())
-    {
-        cout << "no path" << endl;
-        return;
-    }
-
     for (int i = 0; i < v.size(); ++i)
     {
         cout << v[i] << " ";
